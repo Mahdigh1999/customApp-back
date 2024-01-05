@@ -1,0 +1,124 @@
+.menuBar {
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  width: 1360px;
+  height: 40px;
+  margin: auto;
+}
+.menuBar #Menu {
+  transition: all 0.5s;
+  padding: 0;
+  margin: 20px;
+  list-style: none;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+.menuBar #Menu #closeMenu {
+  display: none;
+}
+.menuBar #Menu li {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-right: 20px;
+}
+.menuBar #Menu li:hover::before {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  content: "";
+  border-radius: 5px;
+  border-bottom: 5px solid blue;
+  animation: underliner 0.1s linear forwards;
+}
+.menuBar #Menu li:hover {
+  background-color: #888;
+}
+.menuBar > *:last-child {
+  display: flex;
+  align-items: center;
+}
+.menuBar > *:last-child button {
+  display: none;
+  background-color: inherit;
+  margin-right: 3px;
+  padding: 8px;
+  border-radius: 10px;
+}
+.menuBar #shoppingCartBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 15px;
+  background-color: blue;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+@keyframes underliner {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  #Menu {
+    display: flex !important;
+  }
+}
+@media screen and (max-width: 999px) {
+  .menuBar > *:last-child {
+    display: flex;
+    align-items: center;
+  }
+  .menuBar > *:last-child button {
+    display: block;
+    background-color: inherit;
+    margin-right: 3px;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  .menuBar #Menu {
+    overflow-y: scroll;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    top: 0.5%;
+    left: 0.5%;
+    width: 99%;
+    height: 99%;
+    display: none;
+    position: fixed;
+  }
+  .menuBar #Menu #closeMenu {
+    display: block;
+    text-align: center;
+  }
+  .menuBar #Menu #closeMenu::before {
+    content: none;
+  }
+  .menuBar #Menu li {
+    text-align: center !important;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 1360px) {
+  .menuBar {
+    width: 90%;
+  }
+  .menuBar ul li {
+    font-size: 15px;
+  }
+}
