@@ -302,3 +302,16 @@ function renderMovies(list) {
 }
 
 renderMovies(movies);
+
+
+
+
+function fill(startIndex, finishIndex) {
+
+}
+function searchAll(value) {
+      
+}
+function filterDataFromServer() {
+
+}

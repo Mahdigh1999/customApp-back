@@ -43,15 +43,13 @@ function flexibleColorFills(color){
 }
 
 function bodyColorAndDarkLightBtn(darkStat){
-    if (darkStat) {
-        document.body.style.color = "#fff";
-        document.body.style.backgroundColor = "#333";
-        darkLightImg.src = "./data/images/darkLight/night-mode.png";
-        darkLightLabel.innerHTML = "Dark Mode";
+  if(darkStat){
+    document.body.className = "dark";
+    darkLightImg.src = "./data/images/darkLight/night-mode.png";
+    darkLightLabel.innerHTML = "Dark Mode";
   }
-    else {
-        document.body.style.color = "#111";
-        document.body.style.backgroundColor = "#ddd";
+  else{
+    document.body.className = "light";
     darkLightImg.src = "./data/images/darkLight/brightness.png";
     darkLightLabel.innerHTML = "Light Mode";
   }
@@ -68,5 +66,6 @@ function flexibleColorItems(color) {
       }
         
   }
+
 
 }
