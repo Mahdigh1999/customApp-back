@@ -1,53 +1,51 @@
 function renderMovie(object) {
-  let genre = "";
-  for (let i of object.movieGenre) {
-    object.movieGenre.indexOf(i) === object.movieGenre.length - 1
-      ? (genre += i)
-      : (genre += i + " , ");
-  }
-  let creators = "";
-  for (let i of Object.keys(object.creators)) {
-    Object.keys(object.creators).indexOf(i) ===
-    Object.keys(object.creators).length - 1
-      ? (creators += object.creators[i])
-      : (creators += object.creators[i] + " , ");
-  }
-  //THIS IS UGLY AND I USE STRING I  KNOW IN HTML ALL THIS IS STRING AND MY PREFRENCE IS HERE USE THAT HOPE THAND I DIDNT MAKE MISTAK
-  //     let movieBox = document.createElement('div');
-  //     movieBox.className = 'movieBox'
-  // //----------------------------------------------------
-  //     let mainImage = document.createElement('div');
-  //     mainImage.className = "mainImage";
-  //     let img = document.createElement('img');
-  //     img.src = object.images[0];
-  //     mainImage.appendChild(img);
-  //  ........................................................................
-  //      |          |    |-----------|
-  //      | |        |    |           |
-  //      |   |      |    |           |
-  //      |     |    |    |           |
-  //      |       |  |    |           |
-  //      |        | |    |           |
-  //      |          |    |-----------|
-  //  //---------------------------------------------------------------------------------------------------------------------
-  let divMovieBox = `
+    let genre = "";
+    for (let i of object.movieGenre) {
+        object.movieGenre.indexOf(i) === object.movieGenre.length - 1
+            ? (genre += i)
+            : (genre += i + " , ");
+    }
+    let creators = "";
+    for (let i of Object.keys(object.creators)) {
+        Object.keys(object.creators).indexOf(i) ===
+            Object.keys(object.creators).length - 1
+            ? (creators += object.creators[i])
+            : (creators += object.creators[i] + " , ");
+    }
+    //THIS IS UGLY AND I USE STRING I  KNOW IN HTML ALL THIS IS STRING AND MY PREFRENCE IS HERE USE THAT HOPE THAND I DIDNT MAKE MISTAK
+    //     let movieBox = document.createElement('div');
+    //     movieBox.className = 'movieBox'
+    // //----------------------------------------------------
+    //     let mainImage = document.createElement('div');
+    //     mainImage.className = "mainImage";
+    //     let img = document.createElement('img');
+    //     img.src = object.images[0];
+    //     mainImage.appendChild(img);
+    //  ........................................................................
+    //      |          |    |-----------|
+    //      | |        |    |           |
+    //      |   |      |    |           |
+    //      |     |    |    |           |
+    //      |       |  |    |           |
+    //      |        | |    |           |
+    //      |          |    |-----------|
+    //  //---------------------------------------------------------------------------------------------------------------------
+    let divMovieBox = `
     ${/*<div class="movieBox">*/ ""}
     <div class="mainImage">
       <img src=${object.images[0]} alt="" />
     </div>
     <div class="movieBoxInfo">
       <span class="movieName"><span>Name:</span> ${object.movieName}</span>
-      <span class="movieDate"><span>Release Date :</span> ${
-        object.releaseDate.toString().slice(0, 4) +
+      <span class="movieDate"><span>Release Date :</span> ${object.releaseDate.toString().slice(0, 4) +
         "/" +
         object.releaseDate.toString().slice(4, 6) +
         "/" +
         object.releaseDate.toString().slice(6, 9)
-      }
+        }
       </span>
-      <span class="movieLength"><span>Length Time :</span> ${
-        object.movieLength
-      } min</span>
+      <span class="movieLength"><span>Length Time :</span> ${object.movieLength
+        } min</span>
       <span class="movieGenre"><span>Genres : </span>${genre}</span>
       <span class="movieCreators"
         >
@@ -55,13 +53,11 @@ function renderMovie(object) {
       >
       <!--poese of modal-->
       <span class="moviePrice"><span>Price : </span>${object.price} $</span>
-      <span class="movieStock"><span> In Stock:</span>${
-        object.stock ? object.stock : "Not Exist"
-      }</span>
+      <span class="movieStock"><span> In Stock:</span>${object.stock ? object.stock : "Not Exist"
+        }</span>
       <span class="movieLike">
         <svg
-        fill = ${
-          JSON.parse(localStorage.getItem("darkLight")).dark ? "#fff" : "#111"
+        fill = ${JSON.parse(localStorage.getItem("darkLight")).dark ? "#fff" : "#111"
         }
           class= 'darkLight'
           xmlns="http://www.w3.org/2000/svg"
@@ -78,240 +74,417 @@ function renderMovie(object) {
       >
       <span class="movieRate"
         >IMDB :
-        <span><span style = 'width:${object.rate * 10}%'> ${
-    object.rate
-  }</span></span>
+        <span><span style = 'width:${object.rate * 10}%'> ${object.rate
+        }</span></span>
       </span>
 
       <div id='clickMe${object.id}'> Click Me For More Info ... </div>
     </div>
   ${/*</div>*/ ""}`;
 
-  return divMovieBox;
+    return divMovieBox;
 }
-
+let start = 0;
+let count = 6;
+let startSrch = 0;
+let countSrch = 6;
+let exist = false;
+let Genre = "AllGenre";
+let ascending = true;
+let sortBy = "";
 startPrice.addEventListener("input", (event) => {
-  startPriceOut.innerHTML = event.target.value;
-  filterData();
+    startPriceOut.innerHTML = event.target.value;
+    filterData();
 });
 finalPrice.addEventListener("input", (event) => {
-  finalPriceOut.innerHTML = event.target.value;
-  filterData();
+    finalPriceOut.innerHTML = event.target.value;
+    filterData();
 });
 startRate.addEventListener("input", (event) => {
-  startRateOut.innerHTML = event.target.value;
-  filterData();
+    startRateOut.innerHTML = event.target.value;
+    filterData();
 });
 finalRate.addEventListener("input", (event) => {
-  finalRateOut.innerHTML = event.target.value;
-  filterData();
+    finalRateOut.innerHTML = event.target.value;
+    filterData();
 });
 AllStock.addEventListener("input", () => {
-  filterData();
+    exist = false
+    filterData();
 });
 Exists.addEventListener("input", () => {
-  filterData();
+    exist = true;
+    filterData();
 });
 nameSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 dateSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 priceSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 rateSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 existSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 likeSort.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 ascDsce.addEventListener("input", () => {
-  filterData();
+    filterData();
 });
 for (let i = 0; i < Object.keys(genreFilBox.children).length; i += 2) {
-  genreFilBox.children[i].addEventListener("input", () => {
-    filterData();
-  });
+    genreFilBox.children[i].addEventListener("input", () => {
+        filterData();
+    });
 }
+
 // const map = movies.map(movie => renderMovies(movie));
 // showItems.innerHTML = map.join('\n');
 function filterData() {
-  let ascOrder = true;
-  if (ascDsce.checked) {
-    ascOrder = false;
-    ascDsceLabel.innerHTML = "Descending";
-  } else {
-    ascOrder = true;
-    ascDsceLabel.innerHTML = "Ascending";
-  }
+    sortMovies();
+    console.log(sortBy);
+    showItems.innerHTML = '';
+    whichGenre();
+    let URL = "customApp.aspx/FilterData";
+    let req = {
+        method: "post",
+        body: JSON.stringify({
+            searchValue: Search.value,
+            price: [startPrice.value,
+            finalPrice.value],
+            rate: [startRate.value, finalRate.value],
+            exists: exist,
+            Genres: Genre,
+            asc: ascending,
+            sortByWhich : sortBy
+        }),
+        headers: new Headers({
+            "content-Type": "application/json"
+        })
 
-  showItems.innerHTML = "";
-  const searchResult = handleSearch();
-  let whichGen = whichGenre(searchResult);
-  let existStat = isExist(whichGen);
-  let priceFil = filterPrice(existStat);
-  let filData = filteRate(priceFil);
+    };
+    fetch(URL, req).then(response => response.json())
+        .then(data => {
+            renderMovies(data.d);
+        }).catch(er => console.log(er));
 
-  if (nameSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.movieName.toLowerCase() >
-          secondMovie.movieName.toLowerCase()
-        : fisrtMovie.movieName.toLowerCase() <
-          secondMovie.movieName.toLowerCase();
-      const ex2 = !ex1;
-      if (ex1) return +1;
-      if (ex2) return -1;
-      else return 0;
-    });
-  }
-  if (dateSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.releaseDate > secondMovie.releaseDate
-        : fisrtMovie.releaseDate < secondMovie.releaseDate;
-      const ex2 = !ex1;
-      if (ex1) return +1;
-      if (ex2) return -1;
-      else return 0;
-    });
-  }
-  if (priceSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.price > secondMovie.price
-        : fisrtMovie.price < secondMovie.price;
-      const ex2 = !ex1;
-      if (ex1) return +1;
-      if (ex2) return -1;
-      else return 0;
-    });
-  }
-  if (rateSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.rate > secondMovie.rate
-        : fisrtMovie.rate < secondMovie.rate;
-      const ex2 = !ex1;
-      if (ex1) return +1;
-      if (ex2) return -1;
-      else return 0;
-    });
-  }
-  if (existSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.stock > secondMovie.stock
-        : fisrtMovie.stock < secondMovie.stock;
-      const ex2 = !ex1;
-      if (ex1) return +1;
-      if (ex2) return -1;
-      else return 0;
-    });
-  }
-  if (likeSort.checked) {
-    filData = filData.sort((fisrtMovie, secondMovie) => {
-      const ex1 = ascOrder
-        ? fisrtMovie.likes > secondMovie.likes
-        : fisrtMovie.likes < secondMovie.likes;
-      const ex2 = !ex1;
-      if (ex1) return -1;
-      if (ex2) return +1;
-      else return 0;
-    });
-  }
+    //console.log(s);
 
-  renderMovies(filData);
-  return filData;
+
+    //
+    //renderMovies(s);
+
+
+
+
+
+
+
+    //showItems.innerHTML = "";
+    ////const searchResult = handleSearch();
+    //let whichGen = whichGenre(searchResult);
+    //let existStat = isExist(whichGen);
+    //let priceFil = filterPrice(existStat);
+    //  let filData = filteRate(priceFil);
+    //  sortMovies(filData);
+
+
+    //renderMovies(filData);
+    return s;
 }
 
-Search.addEventListener("input", () => {
-  filterData();
-});
 
-const handleSearch = () => {
-  const searchResult = movies.filter(
-    (movie) =>
-       movie.movieName.toLowerCase().includes(Search.value.toLowerCase())
-  );
 
-  return searchResult;
-};
+let s = 1;
 
-const whichGenre = (base = movies) => {
-  let result;
-  const inputs = [];
-  for (let i = 0; i < Object.keys(genreFilBox.children).length; i += 2) {
-    inputs.push(genreFilBox.children[i]);
-  }
 
-  inputs.forEach((el) => {
-    if (el.checked) {
-      if (el.id == "AllGenre") return base;
 
-      result = base.filter((movie) => movie.movieGenre.includes(el.id));
-    }
-  });
-
-  return result || base;
-};
-
-const isExist = (base = movies) => {
-  let result;
-  if (Exists.checked) {
-    result = base.filter((movie) => movie.stock != 0);
-    return result;
-  }
-  return base;
-};
-const filterPrice = (base = movies) => {
-  let priceFilter = base.filter(
-    (movie) =>
-      movie.price >= startPrice.value && movie.price <= finalPrice.value
-  );
-  return priceFilter;
-};
-const filteRate = (base = movies) => {
-  let rateFilter = base.filter(
-    (movie) => movie.rate >= startRate.value && movie.rate <= finalRate.value
-  );
-  return rateFilter;
-};
 //
 
 function renderMovies(list) {
-  let help;
-  list.forEach((movie) => {
-    help = document.createElement("div");
-    if (movie.stock === 0) {
-      help.className = "movieBox not-exist";
-    } else {
-      help.className = "movieBox";
+    let help;
+    list.forEach((movie) => {
+        help = document.createElement("div");
+        if (movie.stock === 0) {
+            help.className = "movieBox not-exist";
+        } else {
+            help.className = "movieBox";
+        }
+
+        help.setAttribute("data-id", movie.id);
+        help.innerHTML = renderMovie(movie);
+        showItems.appendChild(help);
+
+        eval("clickMe" + movie.id).addEventListener("click", () => { openModal(movie) });
+    });
+}
+
+//renderMovies(movies);
+
+
+
+
+function getDataFromBack(st, ct) {
+    // calling backend
+    //first step add some configuration
+    const URL = "customApp.aspx/getMovies"
+    const req = {
+        method: "post",
+        body: JSON.stringify({ startIndex: st, countOfItems: ct }),
+        headers: new Headers({
+            "content-Type": "application/json"
+        })
+    };
+    // second calling
+    fetch(URL, req)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.d);
+            renderMovies(data.d);
+        }).catch(error => console.log(error));
+}
+
+
+getDataFromBack(start, count);
+
+
+
+showMore.addEventListener("click", function () {
+
+
+    //console.log("start:", start, 'count :', count);
+    if (Search.value) {
+        searchStringAdded = false;
+        startSrch = startSrch + countSrch;
+        handleSearch(Search.value);
+    }
+    else {
+        start = start + count;
+        getDataFromBack(start, count);
+    }
+});
+
+
+
+
+
+
+
+
+
+Search.addEventListener("input", () => {
+    handleSearch();
+});
+const handleSearch = (searchVal) => {
+    // calling backend
+    //first step add some configuration
+    if (Search.value) {
+        filterData();
     }
 
-    help.innerHTML = renderMovie(movie);
-    showItems.appendChild(help);
+    else {
+        showItems.innerHTML = '';
+        console.log("start:", start + 3);
+        getDataFromBack(0, start + 3);
+    }
 
-    eval("clickMe" + movie.id).addEventListener("click", () => {openModal(movie)} );
-  });
+};
+
+
+
+
+
+
+
+
+
+
+
+function sortMovies(filData) {
+
+    if (ascDsce.checked) {
+        ascending = false;
+        ascDsceLabel.innerHTML = "Descending";
+    } else {
+        ascending = true;
+        ascDsceLabel.innerHTML = "Ascending";
+    }
+    if (nameSort.checked) {
+        sortBy = "name"
+        //filData = filData.sort((fisrtMovie, secondMovie) => {
+        //    const ex1 = ascOrder
+        //        ? fisrtMovie.movieName.toLowerCase() >
+        //        secondMovie.movieName.toLowerCase()
+        //        : fisrtMovie.movieName.toLowerCase() <
+        //        secondMovie.movieName.toLowerCase();
+        //    const ex2 = !ex1;
+        //    if (ex1) return +1;
+        //    if (ex2) return -1;
+        //    else return 0;
+        //});
+    }
+    if (dateSort.checked) {
+        sortBy = "date";
+    }
+    if (priceSort.checked) {
+        sortBy = "price";
+    }
+    if (rateSort.checked) {
+        sortBy = "rate";
+    }
+    if (existSort.checked) {
+        sortBy = "stock";
+    }
+    if (likeSort.checked) {
+        sortBy = "like";
+    }
+    //if (dateSort.checked) {
+    //    filData = filData.sort((fisrtMovie, secondMovie) => {
+    //        const ex1 = ascOrder
+    //            ? fisrtMovie.releaseDate > secondMovie.releaseDate
+    //            : fisrtMovie.releaseDate < secondMovie.releaseDate;
+    //        const ex2 = !ex1;
+    //        if (ex1) return +1;
+    //        if (ex2) return -1;
+    //        else return 0;
+    //    });
+    //}
+    //if (priceSort.checked) {
+    //    filData = filData.sort((fisrtMovie, secondMovie) => {
+    //        const ex1 = ascOrder
+    //            ? fisrtMovie.price > secondMovie.price
+    //            : fisrtMovie.price < secondMovie.price;
+    //        const ex2 = !ex1;
+    //        if (ex1) return +1;
+    //        if (ex2) return -1;
+    //        else return 0;
+    //    });
+    //}
+    //if (rateSort.checked) {
+    //    filData = filData.sort((fisrtMovie, secondMovie) => {
+    //        const ex1 = ascOrder
+    //            ? fisrtMovie.rate > secondMovie.rate
+    //            : fisrtMovie.rate < secondMovie.rate;
+    //        const ex2 = !ex1;
+    //        if (ex1) return +1;
+    //        if (ex2) return -1;
+    //        else return 0;
+    //    });
+    //}
+    //if (existSort.checked) {
+    //    filData = filData.sort((fisrtMovie, secondMovie) => {
+    //        const ex1 = ascOrder
+    //            ? fisrtMovie.stock > secondMovie.stock
+    //            : fisrtMovie.stock < secondMovie.stock;
+    //        const ex2 = !ex1;
+    //        if (ex1) return +1;
+    //        if (ex2) return -1;
+    //        else return 0;
+    //    });
+    //}
+    //if (likeSort.checked) {
+    //    filData = filData.sort((fisrtMovie, secondMovie) => {
+    //        const ex1 = ascOrder
+    //            ? fisrtMovie.likes > secondMovie.likes
+    //            : fisrtMovie.likes < secondMovie.likes;
+    //        const ex2 = !ex1;
+    //        if (ex1) return -1;
+    //        if (ex2) return +1;
+    //        else return 0;
+    //    });
+    //}
 }
 
-renderMovies(movies);
 
 
 
 
-function fill(startIndex, finishIndex) {
 
-}
-function searchAll(value) {
-      
-}
-function filterDataFromServer() {
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//function filterDataFromServer() {
+//    let URL = "customApp.aspx/PriceFilter"
+//    if (priceFilChange) {
+//        let req = {
+//            method: "post",
+//            body: JSON.stringify({ priceFrom: startPrice.value, priceTo: finalPrice.value }),
+//            headers: new Headers({
+//                "content-Type": "application/json"
+//            })
+//        };
+//        fetch(URL, req)
+//            .then(response => response.json())
+//            .then(data => {
+//                showItems.innerHTML = "";
+//                console.log(data.d);
+//                renderMovies(data.d);
+//            }).catch(error => console.log(error));
+
+//        priceFilChange = false;
+//    }
+
+
+//}
+const whichGenre = () => {
+    let result;
+    const inputs = [];
+    for (let i = 0; i < Object.keys(genreFilBox.children).length; i += 2) {
+        inputs.push(genreFilBox.children[i]);
+    }
+
+    inputs.forEach((el) => {
+        if (el.checked) {
+            Genre = el.id;
+        }
+    });
+
+};
+/*
+const isExist = (base = movies) => {
+    let result;
+    if (Exists.checked) {
+        result = base.filter((movie) => movie.stock != 0);
+        return result;
+    }
+    return base;
+};
+const filterPrice = (base = movies) => {
+    let priceFilter = base.filter(
+        (movie) =>
+            movie.price >= startPrice.value && movie.price <= finalPrice.value
+    );
+    return priceFilter;
+};
+const filteRate = (base = movies) => {
+    let rateFilter = base.filter(
+        (movie) => movie.rate >= startRate.value && movie.rate <= finalRate.value
+    );
+    return rateFilter;
+};
+*/

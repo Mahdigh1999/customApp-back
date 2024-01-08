@@ -5,7 +5,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Movie App</title>
+    <link rel="icon" type="image/x-icon" href="./data/images/mainLogo/logo.png" />
     <link rel="stylesheet" href="./styles/body.css" />
     <link rel="stylesheet" href="./styles/navBar/navBar.css" />
     <link rel="stylesheet" href="./styles/navBar/menuBar.css" />
@@ -203,13 +204,14 @@
           
 
         </ul>
-        <div id="showItems"></div>
+        <div id="showItems">
+
+        </div>
+          <div id="showMore"> Show More Movies</div>
       </div>
       
       
-
-
- 
+    </div>
     <div id="shoppingCartPage" class="darkLight flex-color">
       <div id = 'closeSCP'>
         <svg 
@@ -249,7 +251,6 @@
           Peyment
         </div>
       </div>
-    </div>
     <div id="movieModal" class="flex-color">
       <div id="closeMM">
         <svg 
@@ -322,9 +323,9 @@
     </div>
 
 
-
       </div>
-    <h1 id="ForCSharp" runat="server"></h1>
+    
+    <%--<h1 id="ForCSharp" runat="server"></h1>--%>
     <script type="text/javascript" src="./scripts/fakeMoviesData.js"></script>
     <script type="text/javascript" src="./scripts/darkLight.js"></script>
     <script type="text/javascript" src="./scripts/shoppingCart.js"></script>

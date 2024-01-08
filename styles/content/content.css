@@ -6,7 +6,19 @@
     display: flex;
     
 }
-
+#showMore {
+    cursor:pointer;
+    border: 1px solid #888;
+    border-radius: 10px;
+    height: 30px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: #888;
+    font-family: Gabriola;
+    width:100%;
+    margin:10px auto 10px;
+}
 
 
 @media screen and (max-width:1359px) {
